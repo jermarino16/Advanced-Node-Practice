@@ -1,0 +1,22 @@
+{
+  "name": "advanced-node-practice",
+  "version": "1.0.0",
+  "description": "Practicing core concepts of Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jermarino16/Advanced-Node-Practice.git"
+  },
+  "author": "Jeremy m",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jermarino16/Advanced-Node-Practice/issues"
+  },
+  "homepage": "https://github.com/jermarino16/Advanced-Node-Practice#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

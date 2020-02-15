@@ -1,5 +1,4 @@
-//practice benchmarking OS requests in node
-// we are not touching the threadpool here
+//see what happens when there are fs tasks, os tasks, and regular tasks
 
 const https = require("https");
 const crypto = require("crypto");
@@ -23,6 +22,7 @@ function doHash(){
 }
 
 doRequest();
+
 fs.readFile("multitask.js", "utf8", () => {
 	console.log("FS: ", Date.now() - start)
 })
