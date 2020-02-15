@@ -1,4 +1,5 @@
 //practice benchmarking OS requests in node
+// we are not touching the threadpool here
 
 const https = require("https");
 
@@ -14,6 +15,8 @@ function doRequest(){
 	});
 }
 
+doRequest();
+doRequest();
 doRequest();
 doRequest();
 doRequest();
