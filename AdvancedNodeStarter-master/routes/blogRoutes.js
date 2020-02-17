@@ -18,8 +18,12 @@ module.exports = app => {
     const redis = require("redis");
     const redisUrl = "redis://127.0.0.1:6379";
     const clent = redis.createClient(redisUrl);
+    const util = require("util"); //promisify function will make things return promise
+    client.get = util.promisify(client.get);
 
     //do we have any cached date in redis related to do query?
+    const cachedBlogs = await client.get(req.user.id); //dont have to use a call  back because it returns a promise
+
 
     //if yes then respond to the request right away and return
 
