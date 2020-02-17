@@ -14,6 +14,17 @@ module.exports = app => {
   });
 
   app.get('/api/blogs', requireLogin, async (req, res) => {
+    //generalize cachein login thats why we write in here
+    const redis = require("redis");
+    const redisUrl = "redis://127.0.0.1:6379";
+    const clent = redis.createClient(redisUrl);
+
+    //do we have any cached date in redis related to do query?
+
+    //if yes then respond to the request right away and return
+
+    //if no we need to respond to request and update our cache to store data
+
     const blogs = await Blog.find({ _user: req.user.id });
 
     res.send(blogs);
