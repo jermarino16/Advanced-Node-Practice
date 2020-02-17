@@ -17,7 +17,6 @@ mongoose.Query.prototype.cache = function(options = {}){
 
 mongoose.Query.prototype.exec = async function () {
 	if (!this.useCache){
-		console.log("serving from mongo");
 		return exec.apply(this, arguments);
 	}
 	console.log("serving from redis")
@@ -46,3 +45,14 @@ mongoose.Query.prototype.exec = async function () {
 	
 	return result;
 }
+
+
+module.exports = {
+	clearHash(hashKey){
+		client.del(JSON.stringify(hashKey));
+		console.log("Cache cleared");
+	}
+
+};
+
+
