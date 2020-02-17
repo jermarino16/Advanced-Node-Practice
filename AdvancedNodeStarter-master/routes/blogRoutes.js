@@ -24,14 +24,18 @@ module.exports = app => {
     //do we have any cached date in redis related to do query?
     const cachedBlogs = await client.get(req.user.id); //dont have to use a call  back because it returns a promise
 
-
     //if yes then respond to the request right away and return
-
+    if (cachedBlogs){
+      console.log("serving from cache");
+      return res.send(JSON.parse(cachedBlogs));
+    }
     //if no we need to respond to request and update our cache to store data
-
+    console.log("serving from mongoDB");
     const blogs = await Blog.find({ _user: req.user.id });
 
     res.send(blogs);
+
+    client.set(req.user.id, JSON.stringify(blogs);
   });
 
   app.post('/api/blogs', requireLogin, async (req, res) => {
