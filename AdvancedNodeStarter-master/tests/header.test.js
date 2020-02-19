@@ -21,16 +21,23 @@ afterEach(async () => {
 	await browser.close();
 });
 
-test("Check the header says blogster", async () => {
-	const text = await page.$eval("a.brand-logo", el => el.innerHTML);
+// test("Check the header says blogster", async () => {
+// 	const text = await page.$eval("a.brand-logo", el => el.innerHTML);
 
-	expect(text).toEqual("Blogster");
-});
+// 	expect(text).toEqual("Blogster");
+// });
 
-test("Check the header has login with google", async () => {
-	const text = await page.$eval(".right a", el => el.innerHTML);
+// test("Check the header has Login with Google", async () => {
+// 	const text = await page.$eval(".right a", el => el.innerHTML);
 
-	expect(text).toEqual("Login With Google");
+// 	expect(text).toEqual("Login With Google");
+// });
+test("Clicking Login starts oauth flow", async () => {
+	await page.click(".right a");
+	const url = await page.url();
+
+	// expect(url).toContain("accounts.google.com");
+	expect(url).toMatch("/accounts\.google\.com/");
 });
 
 
