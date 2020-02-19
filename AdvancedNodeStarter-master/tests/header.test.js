@@ -8,30 +8,32 @@ const puppeteer = require ("puppeteer");
 
 let browser, page; // define globals
 
-// beforeEach(async () =>{
-// 	jest.setTimeout(30000);
-// 	browser = await puppeteer.launch({
-// 		headless: false
-// 	});
-// 	page = await browser.newPage();
-// 	await page.goto("localhost:3000");
-// });
+beforeEach(async () =>{
+	jest.setTimeout(30000);
+	browser = await puppeteer.launch({
+		headless: false
+	});
+	page = await browser.newPage();
+	await page.goto("localhost:3000");
+});
 
 afterEach(async () => {
 	await browser.close();
 });
 
-test("Check the header has the correct test", async () => {
-	jest.setTimeout(30000);
+test("Check the header has the correct content", async () => {
+	// jest.setTimeout(30000);
 
-	browser = await puppeteer.launch({
-		headless: false
-	});
+	// browser = await puppeteer.launch({
+	// 	headless: false
+	// });
 
-	page = await browser.newPage();
-	await page.goto("localhost:3000");
+	// page = await browser.newPage();
+	// await page.goto("localhost:3000");
 
 	const text = await page.$eval("a.brand-logo", el => el.innerHTML);
 
 	expect(text).toEqual("Blogster");
 });
+
+
