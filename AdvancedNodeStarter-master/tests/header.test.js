@@ -21,12 +21,13 @@ afterEach(async () => {
 	await browser.close();
 });
 
-test("We can launch a browser", async () => {
+test("Check the header has the correct test", async () => {
 	jest.setTimeout(30000);
 
 	browser = await puppeteer.launch({
 		headless: false
 	});
+
 	page = await browser.newPage();
 	await page.goto("localhost:3000");
 
