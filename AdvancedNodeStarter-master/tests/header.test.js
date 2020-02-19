@@ -36,7 +36,7 @@ test("Clicking Login starts oauth flow", async () => {
 	await page.click(".right a");
 	const url = await page.url();
 
-	// expect(url).toContain("accounts.google.com");
+	// expect(url).toContain("accounts.google.com"); //either one works
 	expect(url).toMatch("/accounts\.google\.com/");
 });
 
