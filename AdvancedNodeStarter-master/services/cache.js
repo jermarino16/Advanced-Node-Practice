@@ -17,10 +17,8 @@ mongoose.Query.prototype.cache = function(options = {}){
 
 mongoose.Query.prototype.exec = async function () {
 	if (!this.useCache){
-		console.log("serving from mongo");
 		return exec.apply(this, arguments);
 	}
-	console.log("serving from redis")
 	//create the key with values from query and name
 	const key = JSON.stringify(//json stringify to work with redis
 		Object.assign({}, this.getQuery(), {
