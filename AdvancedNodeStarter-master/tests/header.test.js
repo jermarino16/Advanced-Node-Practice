@@ -1,4 +1,6 @@
-const puppeteer = require ("puppeteer");
+const puppeteer 		= require ("puppeteer");
+const sessionFactory 	= require("./factories/sessionFactory");
+const userFactory 		= require("./factories/userFactory");
 
 // test("Adds two numbers", () => {
 // 	const sum = 1 + 2;
@@ -28,11 +30,14 @@ test("Check the header says blogster", async () => {
 });
 
 test("Check the header has Login with Google", async () => {
+	await page.waitFor(".right a");
 	const text = await page.$eval(".right a", el => el.innerHTML);
 
 	expect(text).toEqual("Login With Google");
 });
+
 test("Clicking Login starts oauth flow", async () => {
+	await page.waitFor(".right a");
 	await page.click(".right a");
 	const url = await page.url();
 
@@ -41,25 +46,11 @@ test("Clicking Login starts oauth flow", async () => {
 });
 
 test("When signed in, shows logout button", async () => {
-	//take an existing user ID and generate a session object with it
-	const id = "5e483e683c01114068c094b6"; //id of user in mongodb atlas
+	//generate a user and simulate login
+	const user = await userFactory();
+	const { session, sig } = sessionFactory(user);
 
-	const Buffer = require("safe-buffer").Buffer;
-	const sessionObject = {
-		passport: {
-			user: id
-		}
-	};
-	const sessionString = Buffer.from(
-		JSON.stringify(sessionObject)).toString("base64");
-
-	const Keygrip = require("keygrip");
-	const keys = require("../config/keys");
-	const keygrip = new Keygrip([keys.cookieKey]);
-	const sig = keygrip.sign("session=" + sessionString);
-	// console.log(sessionString, sig);
-
-	await page.setCookie({ name: "session", value: sessionString });
+	await page.setCookie({ name: "session", value: session });
 	await page.setCookie({ name: "session.sig", value: sig});
 	await page.goto("localhost:3000");
 	await page.waitFor("a[href='/auth/logout']");
