@@ -18,7 +18,7 @@ beforeEach(async () =>{
 });
 
 afterEach(async () => {
-	// await browser.close();
+	await browser.close();
 });
 
 test("Check the header says blogster", async () => {
@@ -40,7 +40,7 @@ test("Clicking Login starts oauth flow", async () => {
 	expect(url).toMatch("/accounts\.google\.com/");
 });
 
-test.only("When signed in, shows logout button", async () => {
+test("When signed in, shows logout button", async () => {
 	//take an existing user ID and generate a session object with it
 	const id = "5e483e683c01114068c094b6"; //id of user in mongodb atlas
 
@@ -62,6 +62,12 @@ test.only("When signed in, shows logout button", async () => {
 	await page.setCookie({ name: "session", value: sessionString });
 	await page.setCookie({ name: "session.sig", value: sig});
 	await page.goto("localhost:3000");
+	await page.waitFor("a[href='/auth/logout']");
+
+	const text = await page.$eval("a[href='/auth/logout']", el => el.innerHTML);
+
+	expect(text).toEqual("Logout");
+
 });
 
 
