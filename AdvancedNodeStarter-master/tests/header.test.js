@@ -1,7 +1,12 @@
 const puppeteer 		= require ("puppeteer");
 const sessionFactory 	= require("./factories/sessionFactory");
 const userFactory 		= require("./factories/userFactory");
-const Page = require("./helpers/page");
+
+// test("Adds two numbers", () => {
+// 	const sum = 1 + 2;
+
+// 	expect(sum).toEqual(3);
+// });
 
 let browser, page; // define globals
 
@@ -18,7 +23,7 @@ afterEach(async () => {
 	await browser.close();
 });
 
-test.only("Check the header says blogster", async () => {
+test("Check the header says blogster", async () => {
 	const text = await page.$eval("a.brand-logo", el => el.innerHTML);
 
 	expect(text).toEqual("Blogster");
