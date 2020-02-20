@@ -45,7 +45,7 @@ test("Clicking Login starts oauth flow", async () => {
 	expect(url).toMatch("/accounts\.google\.com/");
 });
 
-test("When signed in, shows logout button", async () => {
+test.only("When signed in, shows logout button", async () => {
 	//generate a user and simulate login
 	const user = await userFactory();
 	const { session, sig } = sessionFactory(user);
