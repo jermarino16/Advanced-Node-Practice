@@ -59,5 +59,27 @@ describe('When logged in', async () => {
       expect(content).toEqual('My Content');
     });
   });
-
 });
+describe('When User is not logged in', async () => {
+  beforeEach(async () => {
+
+  });
+  test("User can not creat blog posts", async () =>  {
+    const result = await page.evaluate(
+      () => {
+        return fetch("/api/blogs", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ title: "My title", content: "My Content"})
+        }).then(res => res.json());
+       }
+      );  
+    expect(result).toEqual( { error: 'You must log in!' } );
+    console.log(result);
+  });
+
+  
+});// end describe
