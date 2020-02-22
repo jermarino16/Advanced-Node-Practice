@@ -35,31 +35,29 @@ describe('When logged in', async () => {
   		expect(contentError).toEqual('You must provide a value');
   	});
   });
-  describe("and using valid inputs", async () => {
-  	beforeEach(async () => {
-  		await page.click("form button");
-  	});
-  	test("submitting takes user to a review screen", async () =>{
-  		await page.type(".title input", "My title");
-  		await page.type(".content input", "My Content");
-  		await page.click("form button");
+  describe('And using valid inputs', async () => {
+    beforeEach(async () => {
+      await page.type('.title input', 'My Title');
+      await page.type('.content input', 'My Content');
+      await page.click('form button');
+    });
 
-  		const text = await page.getContentsOf('h5');
+    test('Submitting takes user to review screen', async () => {
+      const text = await page.getContentsOf('h5');
 
-  		expect(text).toEqual('Please confirm your entries');
-  	});
-  	test("submitting then savings takes user to blog screen", async () =>{
+      expect(text).toEqual('Please confirm your entries');
+    });
+
+    test('Submitting then saving adds blog to index page', async () => {
       await page.click('button.green');
       await page.waitFor('.card');
 
-      const title = page.getContentsOf(".card-title");
-      const content = page.getContentsOf("p");
+      const title = await page.getContentsOf('.card-title');
+      const content = await page.getContentsOf('p');
 
       expect(title).toEqual('My Title');
       expect(content).toEqual('My Content');
-
-
-  	});
+    });
   });
 
 });
