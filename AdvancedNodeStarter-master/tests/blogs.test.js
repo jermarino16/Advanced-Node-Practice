@@ -49,11 +49,16 @@ describe('When logged in', async () => {
   		expect(text).toEqual('Please confirm your entries');
   	});
   	test("submitting then savings takes user to blog screen", async () =>{
-  		const titleError = await page.getContentsOf('.title .red-text');
-  		const contentError = await page.getContentsOf('.content .red-text');
+      await page.click('button.green');
+      await page.waitFor('.card');
 
-  		expect(titleError).toEqual('You must provide a value');
-  		expect(contentError).toEqual('You must provide a value');
+      const title = page.getContentsOf(".card-title");
+      const content = page.getContentsOf("p");
+
+      expect(title).toEqual('My Title');
+      expect(content).toEqual('My Content');
+
+
   	});
   });
 
