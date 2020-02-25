@@ -6,7 +6,7 @@ class CustomPage {
   static async build() {
     const browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox']
+      args: ['--no-sandbox']  //decreases amount of time for tests to run
     });
 
     const page = await browser.newPage();
@@ -29,7 +29,7 @@ class CustomPage {
 
     await this.page.setCookie({ name: 'session', value: session });
     await this.page.setCookie({ name: 'session.sig', value: sig });
-    await this.page.goto('http://localhost:3000/blogs');
+    await this.page.goto('http://localhost:3000/blogs');  //needs http for travis server
     await this.page.waitFor('a[href="/auth/logout"]');
   }
 
