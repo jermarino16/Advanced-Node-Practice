@@ -61,7 +61,26 @@ describe('When logged in', async () => {
       expect(contentError).toEqual('You must provide a value');
     });
   });
+<<<<<<< HEAD
 });
+=======
+  test("User can not creat blog posts", async () =>  {
+    const result = await page.evaluate(
+      () => {
+        return fetch("/api/blogs", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ title: "My title", content: "My Content"})
+        }).then(res => res.json());
+       }
+      );  
+    expect(result).toEqual( { error: 'You must log in!' } );
+    console.log(result);
+  });
+>>>>>>> parent of dd4e507... cant view or create blogs when not logged in
 
 describe('User is not logged in', async () => {
   const actions = [
