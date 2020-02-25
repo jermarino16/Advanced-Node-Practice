@@ -61,9 +61,7 @@ describe('When logged in', async () => {
       expect(contentError).toEqual('You must provide a value');
     });
   });
-<<<<<<< HEAD
 });
-=======
   test("User can not creat blog posts", async () =>  {
     const result = await page.evaluate(
       () => {
@@ -80,7 +78,6 @@ describe('When logged in', async () => {
     expect(result).toEqual( { error: 'You must log in!' } );
     console.log(result);
   });
->>>>>>> parent of dd4e507... cant view or create blogs when not logged in
 
 describe('User is not logged in', async () => {
   const actions = [
